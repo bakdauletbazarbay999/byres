@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Спорт және туризм заттары</title>
+</head>
+<body style="text-align:left; margin-top:30px;">
+    <h2>Таңдаңыз:</h2>
+
+    <input {% if item == "ball" %} checked {% endif %} type="radio" name="item" onclick="window.location.href='{% url 'lab2' Item='ball' %}'"> Доп <br>
+    <input {% if item == 'tent' %} checked {% endif %} type="radio" name="item" onclick="window.location.href='{% url 'lab2' Item='tent' %}'"> Палатка <br>
+    <input {% if item == 'bicycle' %} checked {% endif %} type="radio" name="item" onclick="window.location.href='{% url 'lab2' Item='bicycle' %}'"> Велосипед <br>
+    <input {% if item == 'skate' %} checked {% endif %} type="radio" name="item" onclick="window.location.href='{% url 'lab2' Item='skate' %}'"> Скейтборд <br>
+    <input {% if item == 'backpack' %} checked {% endif %} type="radio" name="item" onclick="window.location.href='{% url 'lab2' Item='backpack' %}'"> Арқа сөмке <br>
+    <br><br>
+
+    {% if image %}
+        <h3 style="margin-left:50px;">
+            Сіз таңдауыңыз -
+            {% if item == "ball" %} Доп {% endif %}
+            {% if item == "tent" %} Палатка {% endif %}
+            {% if item == "bicycle" %} Велосипед {% endif %}
+            {% if item == "skate" %} Скейтборд {% endif %}
+            {% if item == "backpack" %} Арқа сөмке {% endif %}
+        </h3>
+        <img src="{{ image }}" alt="Зат суреті" width="200" style="display:block; margin-left:50px;">
+    {% endif %}
+
+    <br><br><br>
+    <a style="font-size: 16pt" href="/">Басты бетке оралу</a>
+</body>
+</html>

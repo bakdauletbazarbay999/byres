@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>10. Запуск</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            text-align: center;
+            margin-top: 40px;
+        }
+        form {
+            display: inline-block;
+            text-align: left;
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover { background-color: #45a049; }
+        .result { І
+            margin-top: 20px;
+            background: #e7ffe7;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .error {
+        margin-top: 20px;
+        background: #ffe7e7;
+        padding: 10px;
+        border-radius: 8px;
+        }
+        a.back {
+            display: inline-block;
+            margin-top: 20px;
+            color: #333;
+            text-decoration: none;
+        }
+        a.back:hover { text-decoration: underline; }
+        label { display: block; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h2>Пәнді таңдаңыз:</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for subject, teacher in subjects.items %}
+            <label>
+                <input type="checkbox" name="{{ subject }}"
+                    {% if subject in selected_subjects %}checked{% endif %}>
+                {{ subject }}
+            </label>
+        {% endfor %}
+
+        <div style="text-align:center;">
+            <button type="submit" name="execute">ОРЫНДАУ</button>
+            <button type="submit" name="clear">ТАЗАЛАУ</button>
+        </div>
+    </form>
+    <br><br>
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if selected_subjects %}
+    <div class="result">
+        <h3>Нәтиже:</h3>
+        {% for subject, teacher in selected_subjects.items %}
+            <p><b>{{ subject }}</b></p>
+            <p>Дәріс: {{ teacher }}</p>
+            <p>Зертханалық жұмыс: {{ teacher }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <br><a href="{% url 'index' %}" class="back">← Басты бетке оралу</a>
+</body>
+</html>

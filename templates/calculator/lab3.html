@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <title>Лаборатория 3 — JComboBox, JLabel, JButton</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f8fa;
+            text-align: center;
+            margin-top: 50px;
+        }
+        select {
+            padding: 8px;
+            font-size: 16px;
+            margin: 10px;
+        }
+        img {
+            width: 300px;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px gray;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            text-decoration: none;
+            color: white;
+            background: #007bff;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+        a:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Спорт және туризм — бренд пен тауар таңдау</h2>
+
+        <form method="get">
+            <!-- Бренд таңдау -->
+            <label>Бренд таңдаңыз:</label>
+            <select name="brand" onchange="this.form.submit()">
+                {% for brand in brands %}
+                    <option value="{{ brand }}" {% if brand == selected_brand %}selected{% endif %}>{{ brand }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Тауар таңдау -->
+            <label>Тауар таңдаңыз:</label>
+            <select name="item" onchange="this.form.submit()">
+                {% for i in items %}
+                    {% with opt=i|add:" "|add:selected_brand %}
+                        <option value="{{ opt }}" {% if opt == selected_item %}selected{% endif %}>{{ i }}</option>
+                    {% endwith %}
+                {% endfor %}
+            </select>
+        </form>
+
+        {% if image %}
+            <h3>{{ selected_brand }} — {{ selected_item }}</h3>
+            <img src="{{ image }}" alt="{{ selected_item }}">
+        {% endif %}
+
+        <a href="{% url 'index' %}">Басты бетке оралу</a>
+    </div>
+</body>
+</html>
+
+
